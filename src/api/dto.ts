@@ -14,6 +14,14 @@ export type ExtendedEventResponseDto = EventResponseDto & {
 export type NominationResponseDto = {
   title: string;
   description: string;
+  criteriaList: CriteriaResponseDto[];
+};
+
+export type CriteriaResponseDto = {
+  title: string;
+  description?: string;
+  nominationName: string;
+  maxValue: number;
 };
 
 export type UserResponseDto = {

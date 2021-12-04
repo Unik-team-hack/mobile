@@ -4,6 +4,7 @@ export enum MAIN_ROUTES {
   MAIN = 'Главная',
   EVENT_DETAIL = 'Конкурс',
   NOMINATION = 'Номинация',
+  ASSESSMENT = 'Оценивание',
 }
 
 export type MainStackParamList = {
@@ -12,6 +13,7 @@ export type MainStackParamList = {
     id: string;
   };
   [MAIN_ROUTES.NOMINATION]: undefined;
+  [MAIN_ROUTES.ASSESSMENT]: undefined;
 };
 
 export type ProfileNavProps<T extends keyof MainStackParamList> =

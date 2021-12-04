@@ -21,7 +21,7 @@ export const UserInNominationItem = ({
   mark,
 }: UserResponseDto) => {
   const navigation = useNavigation<NavigationProp>();
-  const go = () => navigation.push(MAIN_ROUTES.MAIN, {id: '12324'});
+  const go = () => navigation.push(MAIN_ROUTES.ASSESSMENT, {id: '12324'});
 
   return (
     <TouchableOpacity style={styles.wrapper} onPress={go}>
@@ -29,10 +29,10 @@ export const UserInNominationItem = ({
         <Image source={{uri: image}} style={styles.image} />
         <Text style={styles.text}>Качмазов Александр</Text>
       </View>
-      {}
-      {needMark && !hasFullMark && <Text style={styles.text}>Оценить</Text>}
+      {needMark && !hasFullMark && (
+        <Icon name={'edit'} color={'#00ACAB'} size={16} />
+      )}
       {needMark && hasFullMark && <Text style={styles.text}>{mark}</Text>}
-      {/* <Icon name={'chevron-right'} color={'#ccc'} size={16} /> */}
     </TouchableOpacity>
   );
 };
@@ -44,9 +44,6 @@ const styles = StyleSheet.create({
     color: 'grey',
   },
   wrapper: {
-    // borderColor: '#ddd',
-    // borderWidth: 1,
-    // borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 6,
     justifyContent: 'space-between',
