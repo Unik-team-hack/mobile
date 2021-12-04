@@ -1,0 +1,1 @@
+export {UserInNominationItem} from './UserInNominationItem';

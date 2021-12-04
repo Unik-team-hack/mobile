@@ -7,6 +7,7 @@ import {NominationsList} from '@/components/NominationsList';
 import {API} from '@/api';
 import {NavigationProp, RouteProp} from '@react-navigation/core';
 import {MAIN_ROUTES} from '@/navigation/MainScreen/types';
+import {Section} from '@/components/Section';
 
 interface EventScreenProps {
   navigation: NavigationProp<any, MAIN_ROUTES.EVENT_DETAIL>;
@@ -57,17 +58,18 @@ export const EventScreen = ({route}: EventScreenProps) => {
   return (
     <View style={styles.wrapper}>
       <Text style={styles.title}>Хакатон studhack</Text>
-      <View style={[styles.dateWrapper, styles.section]}>
-        <Icon
-          name={'calendar'}
-          color={'gray'}
-          size={18}
-          style={styles.dateIcon}
-        />
-        <Text style={styles.date}>Декабрь 12, 2021г.</Text>
-      </View>
-      <View style={styles.section}>
-        {/* <Text style={styles.h2}>Участники</Text> */}
+      <Section>
+        <View style={styles.dateWrapper}>
+          <Icon
+            name={'calendar'}
+            color={'gray'}
+            size={18}
+            style={styles.dateIcon}
+          />
+          <Text style={styles.date}>Декабрь 12, 2021г.</Text>
+        </View>
+      </Section>
+      <Section>
         <UsersStack
           avatars={[
             'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
@@ -75,15 +77,13 @@ export const EventScreen = ({route}: EventScreenProps) => {
             'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
           ]}
         />
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.h2}>О мероприятии</Text>
+      </Section>
+      <Section title="О мероприятии">
         <Text style={styles.text}>Сидим чиллим на тусе</Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.h2}>Номинации</Text>
+      </Section>
+      <Section title="Номинации">
         <NominationsList data={mock} />
-      </View>
+      </Section>
     </View>
   );
 };
@@ -108,14 +108,7 @@ const styles = StyleSheet.create({
   dateIcon: {
     marginRight: 8,
   },
-  h2: {
-    fontWeight: '600',
-    marginBottom: 4,
-  },
   text: {
     color: 'grey',
-  },
-  section: {
-    marginTop: 16,
   },
 });

@@ -15,3 +15,12 @@ export type NominationResponseDto = {
   title: string;
   description: string;
 };
+
+export type UserResponseDto = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  patronymic: string;
+  email: string;
+  image: string;
+};
