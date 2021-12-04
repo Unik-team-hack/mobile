@@ -22,7 +22,7 @@ type NavigationProp = CompositeNavigationProp<
 
 const NominationItem = ({title}: NominationResponseDto) => {
   const navigation = useNavigation<NavigationProp>();
-  const go = () => navigation.push(MAIN_ROUTES.EVENT_DETAIL, {id: '12324'});
+  const go = () => navigation.push(MAIN_ROUTES.NOMINATION, {id: '12324'});
 
   return (
     <TouchableOpacity style={styles.wrapper} onPress={go}>

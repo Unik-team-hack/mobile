@@ -35,5 +35,13 @@ export const MainScreenNavigator: React.FC = () => (
         cardStyle: {backgroundColor: 'white'},
       }}
     />
+    <Stack.Screen
+      name={MAIN_ROUTES.NOMINATION}
+      component={screens.NominationScreen}
+      options={{
+        headerTitleStyle: {fontSize: 18},
+        cardStyle: {backgroundColor: 'white'},
+      }}
+    />
   </Stack.Navigator>
 );
