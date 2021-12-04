@@ -1,11 +1,13 @@
 import {StackScreenProps} from '@react-navigation/stack';
 
 export enum MAIN_ROUTES {
-  MAIN = 'Конкурсы',
+  MAIN = 'Главная',
+  EVENT_DETAIL = 'Конкурс',
 }
 
 export type MainStackParamList = {
   [MAIN_ROUTES.MAIN]: undefined;
+  [MAIN_ROUTES.EVENT_DETAIL]: undefined;
 };
 
 export type ProfileNavProps<T extends keyof MainStackParamList> =

@@ -22,9 +22,17 @@ export const MainScreenNavigator: React.FC = () => (
     /> */}
     <Stack.Screen
       name={MAIN_ROUTES.MAIN}
-      component={screens.MainScreen}
+      component={screens.EventsScreen}
       options={{
         headerTitleStyle: {fontSize: 18},
+      }}
+    />
+    <Stack.Screen
+      name={MAIN_ROUTES.EVENT_DETAIL}
+      component={screens.EventScreen}
+      options={{
+        headerTitleStyle: {fontSize: 18},
+        cardStyle: {backgroundColor: 'white'},
       }}
     />
   </Stack.Navigator>

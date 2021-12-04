@@ -10,9 +10,9 @@ const events = {
         participantsCount: 10,
       },
       {
-        name: 'Хакатон Таволга',
+        name: 'Хакатон StudHack',
         description:
-          'Хакатон по разработке приложения для оценивания конкурсов',
+          'Хакатон по разработке приложения для профсоюзной организации Самарского университета',
         participantsCount: 3,
       },
     ] as EventResponseDto[],
