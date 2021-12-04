@@ -16,29 +16,14 @@ export const CoreNavigator = () => (
   <Tab.Navigator>
     <Tab.Screen
       name={CORE_ROUTES.MAIN}
-      component={screens.MainScreen}
+      // component={screens.MainScreen}
+      component={screens.EventsScreen}
       options={{tabBarIcon: icons[0]}}
-    />
-    {/* <Tab.Screen
-      name={CORE_ROUTES.SERVICES}
-      component={screens.ServicesNavigator}
-      options={({navigation}) => {
-        const {routes, index} = navigation.dangerouslyGetState();
-        const {state: exploreState} = routes[index];
-        let tabBarVisible =
-          exploreState?.routes[exploreState?.index]?.name !== 'Tinder' &&
-          exploreState?.routes[exploreState?.index]?.state?.routes[1]?.name !==
-            'Chat';
-        return {
-          tabBarVisible,
-          tabBarIcon: icons[1],
-        };
-      }}
     />
     <Tab.Screen
       name={CORE_ROUTES.PROFILE}
-      component={screens.Profile}
+      component={screens.ProfileScreen}
       options={{tabBarIcon: icons[2]}}
-    /> */}
+    />
   </Tab.Navigator>
 );
