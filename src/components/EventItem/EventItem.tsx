@@ -15,12 +15,16 @@ type NavigationProp = CompositeNavigationProp<
 >;
 
 export const EventItem = ({
+  id,
   name,
   description,
   participantsCount,
-}: Pick<EventResponseDto, 'name' | 'description' | 'participantsCount'>) => {
+}: Pick<
+  EventResponseDto,
+  'id' | 'name' | 'description' | 'participantsCount'
+>) => {
   const navigation = useNavigation<NavigationProp>();
-  const go = () => navigation.navigate(MAIN_ROUTES.EVENT_DETAIL);
+  const go = () => navigation.navigate(MAIN_ROUTES.EVENT_DETAIL, {id});
 
   return (
     <TouchableOpacity style={styles.wrapper} onPress={go}>

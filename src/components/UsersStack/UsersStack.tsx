@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 
 interface UsersStackProps {
   /**
@@ -19,6 +19,14 @@ export const UsersStack = ({avatars, max}: UsersStackProps) => {
     setDisplayedAvatars(avatars.slice(0, max));
   }, [avatars, max]);
 
+  if (avatars.length === 0) {
+    return (
+      <View>
+        <Text style={styles.empty}>Нет участников</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       {displayedAvatars.map((avatar, ind) => (
@@ -30,6 +38,7 @@ export const UsersStack = ({avatars, max}: UsersStackProps) => {
 
         // <View style={styles.userItem} key={`${avatar}_${ind}`} />
       ))}
+      <Text style={styles.counter}>{`${avatars.length} уч.`}</Text>
     </View>
   );
 };
@@ -55,5 +64,11 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     marginLeft: -8,
+  },
+  empty: {
+    color: 'grey',
+  },
+  counter: {
+    marginLeft: 4,
   },
 });

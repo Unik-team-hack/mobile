@@ -1,16 +1,51 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {EventResponseDto} from '@/api/dto';
+import type {ExtendedEventResponseDto} from '@/api/dto';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {UsersStack} from '@/components/UsersStack';
+import {NominationsList} from '@/components/NominationsList';
+import {API} from '@/api';
+import {NavigationProp, RouteProp} from '@react-navigation/core';
+import {MAIN_ROUTES} from '@/navigation/MainScreen/types';
 
-export const EventScreen = () => {
-  const [event, setEvent] = React.useState<EventResponseDto | null>(null);
+interface EventScreenProps {
+  navigation: NavigationProp<any, MAIN_ROUTES.EVENT_DETAIL>;
+  route: RouteProp<{params: {id: string}}, 'params'>;
+}
+
+export const EventScreen = ({route}: EventScreenProps) => {
+  const [event, setEvent] = React.useState<ExtendedEventResponseDto | null>(
+    null,
+  );
   const [isRefreshing, setIsRefreshing] = React.useState(false);
 
   React.useEffect(() => {
-    // TODO: load event
-  }, []);
+    // setIsRefreshing(true);
+    // API.events
+    //   .getDetails(route.params.id)
+    //   .then(setEvent)
+    //   .finally(() => {
+    //     setIsRefreshing(false);
+    //   });
+  }, [route?.params?.id]);
+
+  if (isRefreshing) {
+    return (
+      <View>
+        <Text>Загрузка</Text>
+      </View>
+    );
+  }
+
+  // if (event === null) {
+  //   return (
+  //     <View>
+  //       <Text>
+  //         Что-то пошло не так. Либо такого конкурса нет, либо он Вам недоступен
+  //       </Text>
+  //     </View>
+  //   );
+  // }
 
   return (
     <View style={styles.wrapper}>
@@ -38,6 +73,10 @@ export const EventScreen = () => {
         <Text style={styles.h2}>О мероприятии</Text>
         <Text style={styles.text}>Сидим чиллим на тусе</Text>
       </View>
+      <View style={styles.section}>
+        <Text style={styles.h2}>Номинации</Text>
+        <NominationsList data={[]} />
+      </View>
     </View>
   );
 };
@@ -49,7 +88,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    // fontWeight: '600',
     fontWeight: 'bold',
     marginTop: 8,
   },

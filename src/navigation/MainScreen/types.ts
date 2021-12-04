@@ -7,7 +7,9 @@ export enum MAIN_ROUTES {
 
 export type MainStackParamList = {
   [MAIN_ROUTES.MAIN]: undefined;
-  [MAIN_ROUTES.EVENT_DETAIL]: undefined;
+  [MAIN_ROUTES.EVENT_DETAIL]: {
+    id: string;
+  };
 };
 
 export type ProfileNavProps<T extends keyof MainStackParamList> =
