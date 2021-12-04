@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import type {ExtendedEventResponseDto} from '@/api/dto';
+import type {ExtendedEventResponseDto, NominationResponseDto} from '@/api/dto';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {UsersStack} from '@/components/UsersStack';
 import {NominationsList} from '@/components/NominationsList';
@@ -47,6 +47,13 @@ export const EventScreen = ({route}: EventScreenProps) => {
   //   );
   // }
 
+  const mock: NominationResponseDto[] = [
+    {title: 'Лучший шпагат', description: ''},
+    {title: 'Мисс Россия', description: ''},
+    {title: 'Мистер Олимпия', description: ''},
+  ];
+  // const mock = [];
+
   return (
     <View style={styles.wrapper}>
       <Text style={styles.title}>Хакатон studhack</Text>
@@ -75,7 +82,7 @@ export const EventScreen = ({route}: EventScreenProps) => {
       </View>
       <View style={styles.section}>
         <Text style={styles.h2}>Номинации</Text>
-        <NominationsList data={[]} />
+        <NominationsList data={mock} />
       </View>
     </View>
   );
