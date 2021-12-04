@@ -2,19 +2,22 @@ export type EventResponseDto = {
   id: string;
   name: string;
   description: string;
+  date: string;
   participantsCount: number;
   judgesCount: number;
   accessorsCount: number;
 };
 export type ExtendedEventResponseDto = EventResponseDto & {
-  participants: object[];
+  participants: UserResponseDto[];
   nominations: NominationResponseDto[];
 };
 
 export type NominationResponseDto = {
+  id: string;
   title: string;
   description: string;
   criteriaList: CriteriaResponseDto[];
+  users: UserResponseDto[];
 };
 
 export type CriteriaResponseDto = {

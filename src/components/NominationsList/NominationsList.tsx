@@ -20,9 +20,9 @@ type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<MainStackParamList>
 >;
 
-const NominationItem = ({title}: NominationResponseDto) => {
+const NominationItem = ({title, id}: NominationResponseDto) => {
   const navigation = useNavigation<NavigationProp>();
-  const go = () => navigation.push(MAIN_ROUTES.NOMINATION, {id: '12324'});
+  const go = () => navigation.push(MAIN_ROUTES.NOMINATION, {id});
 
   return (
     <TouchableOpacity style={styles.wrapper} onPress={go}>

@@ -1,7 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import {EventResponseDto} from '@/api/dto';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/core';
 import {MainStackParamList, MAIN_ROUTES} from '@/navigation/MainScreen/types';
@@ -18,7 +17,6 @@ export const EventItem = ({
   id,
   name,
   description,
-  participantsCount,
 }: Pick<
   EventResponseDto,
   'id' | 'name' | 'description' | 'participantsCount'
@@ -32,18 +30,6 @@ export const EventItem = ({
       <Text style={styles.description} numberOfLines={2}>
         {description}
       </Text>
-      <View style={styles.countersWrapper}>
-        <Text>
-          <Icon
-            name={'users'}
-            color={'black'}
-            size={12}
-            solid
-            style={styles.icon}
-          />
-          <Text style={styles.counter}>{participantsCount}</Text>
-        </Text>
-      </View>
     </TouchableOpacity>
   );
 };
@@ -60,18 +46,7 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: 'white',
     paddingHorizontal: 14,
-    paddingVertical: 8,
+    paddingVertical: 12,
     borderRadius: 8,
-  },
-  countersWrapper: {
-    paddingTop: 4,
-  },
-  icon: {
-    marginRight: 12,
-  },
-  counter: {
-    // TODO: fix
-    // marginLeft: 12,
-    // paddingLeft: 12,
   },
 });

@@ -8,6 +8,7 @@ import {API} from '@/api';
 import {NavigationProp, RouteProp} from '@react-navigation/core';
 import {MAIN_ROUTES} from '@/navigation/MainScreen/types';
 import {Section} from '@/components/Section';
+import {formatDate} from '@/utils';
 
 interface EventScreenProps {
   navigation: NavigationProp<any, MAIN_ROUTES.EVENT_DETAIL>;
@@ -21,13 +22,13 @@ export const EventScreen = ({route}: EventScreenProps) => {
   const [isRefreshing, setIsRefreshing] = React.useState(false);
 
   React.useEffect(() => {
-    // setIsRefreshing(true);
-    // API.events
-    //   .getDetails(route.params.id)
-    //   .then(setEvent)
-    //   .finally(() => {
-    //     setIsRefreshing(false);
-    //   });
+    setIsRefreshing(true);
+    API.events
+      .getDetails(route.params.id)
+      .then(setEvent)
+      .finally(() => {
+        setIsRefreshing(false);
+      });
   }, [route?.params?.id]);
 
   if (isRefreshing) {
@@ -38,26 +39,19 @@ export const EventScreen = ({route}: EventScreenProps) => {
     );
   }
 
-  // if (event === null) {
-  //   return (
-  //     <View>
-  //       <Text>
-  //         Что-то пошло не так. Либо такого конкурса нет, либо он Вам недоступен
-  //       </Text>
-  //     </View>
-  //   );
-  // }
-
-  const mock: NominationResponseDto[] = [
-    {title: 'Лучший шпагат', description: ''},
-    {title: 'Мисс Россия', description: ''},
-    {title: 'Мистер Олимпия', description: ''},
-  ];
-  // const mock = [];
+  if (event === null) {
+    return (
+      <View>
+        <Text>
+          Что-то пошло не так. Либо такого конкурса нет, либо он Вам недоступен
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.title}>Хакатон studhack</Text>
+      <Text style={styles.title}>{event.name}</Text>
       <Section>
         <View style={styles.dateWrapper}>
           <Icon
@@ -66,23 +60,17 @@ export const EventScreen = ({route}: EventScreenProps) => {
             size={18}
             style={styles.dateIcon}
           />
-          <Text style={styles.date}>Декабрь 12, 2021г.</Text>
+          <Text style={styles.date}>{formatDate(event.date)}</Text>
         </View>
       </Section>
       <Section>
-        <UsersStack
-          avatars={[
-            'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
-            'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
-            'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
-          ]}
-        />
+        <UsersStack avatars={event.participants.map(x => x.image || false)} />
       </Section>
       <Section title="О мероприятии">
-        <Text style={styles.text}>Сидим чиллим на тусе</Text>
+        <Text style={styles.text}>{event.description}</Text>
       </Section>
       <Section title="Номинации">
-        <NominationsList data={mock} />
+        <NominationsList data={event.nominations} />
       </Section>
     </View>
   );

@@ -1,39 +1,31 @@
-import type {EventResponseDto, ExtendedEventResponseDto} from './dto';
+import axios from 'axios';
+import {BASE_API_URL} from './config';
+import type {
+  EventResponseDto,
+  ExtendedEventResponseDto,
+  NominationResponseDto,
+} from './dto';
 
 const events = {
-  getList: async () =>
-    [
-      {
-        name: 'Хакатон Таволга',
-        description:
-          'Хакатон по разработке приложения для оценивания конкурсов',
-        participantsCount: 10,
-      },
-      {
-        name: 'Хакатон StudHack',
-        description:
-          'Хакатон по разработке приложения для профсоюзной организации Самарского университета',
-        participantsCount: 3,
-      },
-    ] as EventResponseDto[],
-  getDetails: async (id: string) => {
-    return {
-      id: id,
-      name: 'Хакатон Таволга',
-      description: 'Хакатон по разработке приложения для оценивания конкурсов',
-      nominations: [],
-      participants: [],
-      accessorsCount: 0,
-      judgesCount: 0,
-      participantsCount: 0,
-    } as ExtendedEventResponseDto;
-  },
+  getList: () =>
+    axios
+      .get<EventResponseDto[]>(`${BASE_API_URL}/v1/events`)
+      .then(x => x.data),
+  getDetails: (id: string) =>
+    axios
+      .get<ExtendedEventResponseDto>(`${BASE_API_URL}/v1/events?id=${id}`)
+      .then(x => x.data),
 };
 
 const nominations = {
-  getNominations: async (params: type) => {},
+  // getList: async (params: type) => {},
+  getById: (id: string) =>
+    axios
+      .get<NominationResponseDto>(`${BASE_API_URL}/v1/nominations/${id}`)
+      .then(x => x.data),
 };
 
 export const API = {
   events,
+  nominations,
 };

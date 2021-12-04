@@ -1,54 +1,78 @@
 import React from 'react';
 import {FlatList, ListRenderItem, StyleSheet, Text, View} from 'react-native';
 
-import {UserResponseDto} from '@/api/dto';
+import {API} from '@/api';
+import {NominationResponseDto, UserResponseDto} from '@/api/dto';
 import {UserInNominationItem} from '@/components/UserInNominationItem';
+import {NavigationProp, RouteProp} from '@react-navigation/core';
+import {MAIN_ROUTES} from '@/navigation/MainScreen/types';
 
-const renderItem: ListRenderItem<UserResponseDto> = ({item}) => {
-  return <UserInNominationItem {...item} />;
-};
+const mock: UserResponseDto[] = [
+  {
+    image:
+      'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
+    hasEditAccess: true,
+  },
+  {
+    image:
+      'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
+    hasEditAccess: true,
+    hasFullMark: true,
+    mark: 90,
+  },
+  {
+    image:
+      'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
+    hasEditAccess: true,
+  },
+  {
+    image:
+      'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
+    hasEditAccess: true,
+  },
+];
 
-export const NominationScreen = () => {
-  const [data, setData] = React.useState<UserResponseDto[]>([
-    {
-      image:
-        'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
-      needMark: true,
-    },
-    {
-      image:
-        'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
-      needMark: true,
-      hasFullMark: true,
-      mark: 9,
-    },
-    {
-      image:
-        'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
-      needMark: true,
-    },
-    {
-      image:
-        'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
-      needMark: true,
-    },
-  ]);
+const renderItem: ListRenderItem<UserResponseDto> = ({item}) => (
+  <UserInNominationItem {...item} />
+);
+
+interface NominationScreenProps {
+  navigation: NavigationProp<any, MAIN_ROUTES.NOMINATION>;
+  route: RouteProp<{params: {id: string}}, 'params'>;
+}
+
+export const NominationScreen = ({route}: NominationScreenProps) => {
+  const [isRefreshing, setIsRefreshing] = React.useState(false);
+  const [data, setData] = React.useState<NominationResponseDto | null>(null);
+
+  const onRefresh = React.useCallback(() => {
+    setIsRefreshing(true);
+    API.nominations
+      .getById(route.params.id)
+      .then(setData)
+      .finally(() => {
+        setIsRefreshing(false);
+      });
+  }, [route.params.id]);
+
+  React.useEffect(() => {
+    onRefresh();
+  }, [onRefresh]);
 
   return (
     <FlatList
-      data={data}
+      data={data?.users}
       renderItem={renderItem}
       ListHeaderComponent={() => (
         <View>
-          <Text style={styles.title}>Юмор</Text>
-          <Text style={styles.text}>
-            Номинация для самых весёлых и находчивых
-          </Text>
+          <Text style={styles.title}>{data?.title}</Text>
+          <Text style={styles.text}>{data?.description}</Text>
         </View>
       )}
       ListHeaderComponentStyle={styles.header}
-      style={styles.wrapper}
       ItemSeparatorComponent={Separator}
+      refreshing={isRefreshing}
+      onRefresh={onRefresh}
     />
   );
 };
@@ -56,13 +80,10 @@ export const NominationScreen = () => {
 const Separator = () => <View style={styles.sep} />;
 
 const styles = StyleSheet.create({
-  wrapper: {
-    // paddingHorizontal: 12,
-  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 8,
+    marginVertical: 8,
   },
   header: {
     marginBottom: 12,

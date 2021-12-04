@@ -9,10 +9,8 @@ export enum MAIN_ROUTES {
 
 export type MainStackParamList = {
   [MAIN_ROUTES.MAIN]: undefined;
-  [MAIN_ROUTES.EVENT_DETAIL]: {
-    id: string;
-  };
-  [MAIN_ROUTES.NOMINATION]: undefined;
+  [MAIN_ROUTES.EVENT_DETAIL]: {id: string};
+  [MAIN_ROUTES.NOMINATION]: {id: string};
   [MAIN_ROUTES.ASSESSMENT]: undefined;
 };
 

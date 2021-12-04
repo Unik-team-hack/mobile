@@ -1,11 +1,13 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
+const imageMock = require('@/mocks/avatar.jpg');
+
 interface UsersStackProps {
   /**
    * Массив ссылок на аватарки. (На данный момент рендерятся заглушки. TODO)
    */
-  avatars: string[];
+  avatars: (string | boolean)[];
   /**
    * Максимальное количество отоброжаемых аватарок
    */
@@ -13,7 +15,9 @@ interface UsersStackProps {
 }
 
 export const UsersStack = ({avatars, max}: UsersStackProps) => {
-  const [displayedAvatars, setDisplayedAvatars] = React.useState<string[]>([]);
+  const [displayedAvatars, setDisplayedAvatars] = React.useState<
+    (string | boolean)[]
+  >([]);
 
   React.useEffect(() => {
     setDisplayedAvatars(avatars.slice(0, max));
@@ -31,7 +35,7 @@ export const UsersStack = ({avatars, max}: UsersStackProps) => {
     <View style={styles.container}>
       {displayedAvatars.map((avatar, ind) => (
         <Image
-          source={{uri: avatar}}
+          source={avatar ? {uri: avatar} : imageMock}
           style={styles.userItem}
           key={`${avatar}_${ind}`}
         />

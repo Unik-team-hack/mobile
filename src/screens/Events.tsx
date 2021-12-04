@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import {API} from '@/api';
 import {EventResponseDto} from '@/api/dto';
 import {EventItem} from '@/components/EventItem';

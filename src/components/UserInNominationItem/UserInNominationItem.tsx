@@ -9,6 +9,8 @@ import {MainStackParamList, MAIN_ROUTES} from '@/navigation/MainScreen/types';
 import {CoreTabsParamList, CORE_ROUTES} from '@/navigation/types';
 import {UserResponseDto} from '@/api/dto';
 
+const imageMock = require('@/mocks/avatar.jpg');
+
 type NavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<CoreTabsParamList, CORE_ROUTES.MAIN>,
   StackNavigationProp<MainStackParamList>
@@ -16,28 +18,42 @@ type NavigationProp = CompositeNavigationProp<
 
 export const UserInNominationItem = ({
   image,
-  needMark,
   hasFullMark,
   mark,
+  hasEditAccess,
+  hasViewAccess,
+  firstName,
+  lastName,
 }: UserResponseDto) => {
   const navigation = useNavigation<NavigationProp>();
-  const go = () => navigation.push(MAIN_ROUTES.ASSESSMENT, {id: '12324'});
+  const go = () => {
+    if (hasEditAccess) {
+      navigation.push(MAIN_ROUTES.ASSESSMENT, {id: '12324'});
+    } else if (hasViewAccess) {
+      // TODO: change
+      navigation.push(MAIN_ROUTES.ASSESSMENT, {id: '12324'});
+    }
+  };
 
   return (
     <TouchableOpacity style={styles.wrapper} onPress={go}>
       <View style={styles.info}>
-        <Image source={{uri: image}} style={styles.image} />
-        <Text style={styles.text}>Качмазов Александр</Text>
+        <Image source={image ? {uri: image} : imageMock} style={styles.image} />
+        <Text style={[styles.text, styles.fio]} adjustsFontSizeToFit>
+          {`${firstName} ${lastName}`}
+        </Text>
       </View>
-      {needMark && !hasFullMark && (
+      {hasEditAccess && !hasFullMark && (
         <Icon name={'edit'} color={'#00ACAB'} size={16} />
       )}
-      {needMark && hasFullMark && <Text style={styles.text}>{mark}</Text>}
+      {hasEditAccess && hasFullMark && (
+        <Text style={[styles.text, styles.mark]}>{mark}</Text>
+      )}
     </TouchableOpacity>
   );
 };
 
-const SIZE = 48;
+const SIZE = 52;
 
 const styles = StyleSheet.create({
   empty: {
@@ -61,5 +77,12 @@ const styles = StyleSheet.create({
   info: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
+  },
+  mark: {
+    marginRight: 6,
+  },
+  fio: {
+    flex: 1,
   },
 });
