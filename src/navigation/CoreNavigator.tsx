@@ -3,6 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import * as screens from '@/screens';
 import {CoreTabsParamList, CORE_ROUTES} from './types';
+import {MainScreenNavigator} from './MainScreen';
 
 const Tab = createBottomTabNavigator<CoreTabsParamList>();
 
@@ -17,8 +18,8 @@ export const CoreNavigator = () => (
     <Tab.Screen
       name={CORE_ROUTES.MAIN}
       // component={screens.MainScreen}
-      component={screens.EventsScreen}
-      options={{tabBarIcon: icons[0]}}
+      component={MainScreenNavigator}
+      options={{tabBarIcon: icons[0], headerShown: false}}
     />
     <Tab.Screen
       name={CORE_ROUTES.PROFILE}
