@@ -55,3 +55,8 @@ export type SignUpRequestDto = {
   imageKey?: string;
   patronymic: string;
 };
+
+export type MarksResponseDto = {
+  mark: number;
+  criteria: CriteriaResponseDto;
+};

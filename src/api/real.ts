@@ -3,6 +3,7 @@ import {BASE_API_URL} from './config';
 import type {
   EventResponseDto,
   ExtendedEventResponseDto,
+  MarksResponseDto,
   NominationResponseDto,
   SignInRequestDto,
   SignInResponseDto,
@@ -43,6 +44,14 @@ const marks = {
     axios.post(
       `${BASE_API_URL}/v1/marks?criteriaId=${criteriaId}&userId=${userId}&mark=${mark}`,
     ),
+  getMarks: (usersIds: string[], nominationId: string) =>
+    axios
+      .get<{[key: string]: MarksResponseDto[]}>(
+        `${BASE_API_URL}/v1/marks?${usersIds
+          .map(x => `ids=${x}`)
+          .join('&')}&nominationId=${nominationId}`,
+      )
+      .then(x => x.data),
 };
 
 export const API = {

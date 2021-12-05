@@ -1,12 +1,39 @@
 import type {
+  CriteriaResponseDto,
   EventResponseDto,
   ExtendedEventResponseDto,
+  MarksResponseDto,
   NominationResponseDto,
   SignInRequestDto,
   SignInResponseDto,
   SignUpRequestDto,
   UserResponseDto,
 } from './dto';
+
+const userMock: UserResponseDto = {
+  firstName: 'Александр',
+  image:
+    'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
+  lastName: 'Качмазов',
+  id: '1234',
+  patronymic: 'Отчество',
+  email: 'example@mail.ru',
+};
+
+const critsMock: CriteriaResponseDto[] = [
+  {
+    title: 'android',
+    maxValue: 5,
+    description: 'develop android app',
+    nominationName: 'Приложение',
+  },
+  {
+    title: 'ios',
+    maxValue: 6,
+    description: 'develop ios app',
+    nominationName: 'Приложение',
+  },
+];
 
 const events = {
   getList: async () => {
@@ -35,14 +62,7 @@ const events = {
       nominations: [
         {title: 'Приложение', description: 'Android+ios', id: '123'},
       ],
-      participants: [
-        {
-          firstName: 'Александр',
-          image:
-            'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
-          lastName: 'Качмазов',
-        },
-      ],
+      participants: [userMock],
       nominationRoles: {
         '123': 'ACCESSOR',
       },
@@ -59,24 +79,8 @@ const nominations = {
       title: 'Приложение',
       description: 'Android+ios',
       id: '123',
-      users: [
-        {
-          firstName: 'Александр',
-          image:
-            'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
-          lastName: 'Качмазов',
-        },
-      ],
-      criteriaList: [
-        {
-          title: 'android',
-          maxValue: 5,
-        },
-        {
-          title: 'ios',
-          maxValue: 6,
-        },
-      ],
+      users: [userMock],
+      criteriaList: critsMock,
     };
     return res;
   },
@@ -118,6 +122,18 @@ const auth = {
 const marks = {
   setMark: async () => {
     return {};
+  },
+  getMarks: async () => {
+    const res: {[key: string]: MarksResponseDto[]} = {
+      '1324': [
+        {
+          mark: 4.3,
+          criteria: critsMock[0],
+        },
+      ],
+    };
+
+    return res;
   },
 };
 
