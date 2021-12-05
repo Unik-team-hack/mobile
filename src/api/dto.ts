@@ -1,3 +1,11 @@
+export type EventStatus =
+  | 'Deleted'
+  | 'Inited'
+  | 'Not started'
+  | 'In progress'
+  | 'Fixed'
+  | 'Ended';
+
 export type EventResponseDto = {
   id: string;
   name: string;
@@ -6,7 +14,9 @@ export type EventResponseDto = {
   participantsCount: number;
   judgesCount: number;
   accessorsCount: number;
+  status: EventStatus;
 };
+
 export type ExtendedEventResponseDto = EventResponseDto & {
   participants: UserResponseDto[];
   nominations: NominationResponseDto[];
