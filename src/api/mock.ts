@@ -51,7 +51,7 @@ const events = {
 
 const nominations = {
   // getList: async (params: type) => {},
-  getById: (id: string) => {
+  getById: async (id: string) => {
     const res: NominationResponseDto = {
       title: 'Приложение',
       description: 'Android+ios',
@@ -87,7 +87,7 @@ const auth = {
     };
     return {data: res};
   },
-  signUp: (data: SignUpRequestDto) => {
+  signUp: async (data: SignUpRequestDto) => {
     const res: UserResponseDto = {
       firstName: 'Александр',
       image:
