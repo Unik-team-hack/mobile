@@ -1,2 +1,2 @@
 // import { API } from "./real";
-export { API } from "./mock";
+export {API} from './mock';
