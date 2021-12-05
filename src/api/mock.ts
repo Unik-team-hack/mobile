@@ -1,5 +1,3 @@
-import axios from 'axios';
-import {BASE_API_URL} from './config';
 import type {
   EventResponseDto,
   ExtendedEventResponseDto,
@@ -46,15 +44,39 @@ const events = {
         },
       ],
     };
+
+    return res;
   },
 };
 
 const nominations = {
   // getList: async (params: type) => {},
-  getById: (id: string) =>
-    axios
-      .get<NominationResponseDto>(`${BASE_API_URL}/v1/nominations/${id}`)
-      .then(x => x.data),
+  getById: (id: string) => {
+    const res: NominationResponseDto = {
+      title: 'Приложение',
+      description: 'Android+ios',
+      id: '123',
+      users: [
+        {
+          firstName: 'Александр',
+          image:
+            'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
+          lastName: 'Качмазов',
+        },
+      ],
+      criteriaList: [
+        {
+          title: 'android',
+          maxValue: 5,
+        },
+        {
+          title: 'ios',
+          maxValue: 6,
+        },
+      ],
+    };
+    return res;
+  },
 };
 
 const auth = {
@@ -65,8 +87,17 @@ const auth = {
     };
     return {data: res};
   },
-  signUp: (data: SignUpRequestDto) =>
-    axios.post<UserResponseDto>(`${BASE_API_URL}/v1/users/register`, data),
+  signUp: (data: SignUpRequestDto) => {
+    const res: UserResponseDto = {
+      firstName: 'Александр',
+      image:
+        'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
+      lastName: 'Качмазов',
+      id: '124r',
+    };
+
+    return {data: res};
+  },
 };
 
 export const API = {
