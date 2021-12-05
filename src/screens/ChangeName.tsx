@@ -1,18 +1,33 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { TextInput } from '@/components/TextInput'
 import { Button } from '@/components/Button'
+import ProfileStore from '@/store/ProfileStore'
+import { ProfileNavProps, PROFILE_ROUTES } from '@/navigation/ProfileScreen/types'
 
-export const ChangeName = () => {
+type ChangeNameProps = ProfileNavProps<PROFILE_ROUTES.CHANGE_NAME>
+
+export const ChangeName = ({navigation}:ChangeNameProps) => {
+    const {user, updateInfo} = useContext(ProfileStore)
+
+    const [firstName, setFirstName] = useState(user?.firstName)
+    const [lastName, setLastName] = useState(user?.lastName)
+    const [patronymic, setPatronymic] = useState(user?.patronymic)
+
+    const onSubmit = async () =>{
+        await updateInfo(firstName!, lastName!, patronymic!)
+        navigation.goBack()
+    }
+
     return (
         <View>
             <Text>{'Имя:'}</Text>
-            <TextInput/>
+            <TextInput value={firstName} onChangeText={setFirstName}/>
             <Text>{'Фамилия:'}</Text>
-            <TextInput/>
+            <TextInput value={lastName} onChangeText={setLastName}/>
             <Text>{'Отчество:'}</Text>
-            <TextInput/>
-            <Button text={'Подтвердить'} onPress={()=>{}}/>
+            <TextInput value={patronymic} onChangeText={setPatronymic}/>
+            <Button text={'Подтвердить'} onPress={onSubmit}/>
         </View>
     )
 }

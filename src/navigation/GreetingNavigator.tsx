@@ -18,7 +18,7 @@ export type GreetingStackParamList = {
   [GREETING_ROUTES.SIGNUP]: {id: string};
 };
 
-export type ProfileNavProps<T extends keyof GreetingStackParamList> =
+export type GreetingNavProps<T extends keyof GreetingStackParamList> =
   StackScreenProps<GreetingStackParamList, T>;
 
 const Stack = createStackNavigator();
