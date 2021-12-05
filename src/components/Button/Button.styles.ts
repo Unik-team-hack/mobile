@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   },
   wrapper: {
     alignItems: 'center',
-    backgroundColor: '#2787F5',
+    backgroundColor: 'rgb(47, 54, 106)',
     borderRadius: 12,
     flexDirection: 'row',
     height: 52,

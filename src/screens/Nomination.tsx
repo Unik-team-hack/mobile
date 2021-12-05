@@ -2,43 +2,22 @@ import React from 'react';
 import {FlatList, ListRenderItem, StyleSheet, Text, View} from 'react-native';
 
 import {API} from '@/api';
-import {NominationResponseDto, UserResponseDto} from '@/api/dto';
+import {EventStatus, NominationResponseDto, UserResponseDto} from '@/api/dto';
 import {UserInNominationItem} from '@/components/UserInNominationItem';
 import {NavigationProp, RouteProp} from '@react-navigation/core';
 import {MAIN_ROUTES} from '@/navigation/MainScreen/types';
 
-const mock: UserResponseDto[] = [
-  {
-    image:
-      'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
-    hasEditAccess: true,
-  },
-  {
-    image:
-      'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
-    hasEditAccess: true,
-    hasFullMark: true,
-    mark: 90,
-  },
-  {
-    image:
-      'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
-    hasEditAccess: true,
-  },
-  {
-    image:
-      'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
-    hasEditAccess: true,
-  },
-];
 
 const renderItem: ListRenderItem<UserResponseDto> = ({item}) => (
-  <UserInNominationItem {...item} />
-);
+  // <UserInNominationItem {...item} hasViewAccess={item.eventStatus==='Ended'} hasEditAccess={item.eventStatus==='In Progress' && item.role==='ACCESSOR'} />
+  // <UserInNominationItem {...item} hasViewAccess={item.eventStatus==='Ended'} hasEditAccess={item.eventStatus==='In Progress' && item.role==='ACCESSOR'} />
+  <UserInNominationItem {...item} hasViewAccess={item.eventStatus==='Ended'} hasEditAccess={true} />
+
+  );
 
 interface NominationScreenProps {
   navigation: NavigationProp<any, MAIN_ROUTES.NOMINATION>;
-  route: RouteProp<{params: {id: string}}, 'params'>;
+  route: RouteProp<{params: {id: string, role:string, eventStatus:EventStatus}}, 'params'>;
 }
 
 export const NominationScreen = ({route}: NominationScreenProps) => {
@@ -61,7 +40,7 @@ export const NominationScreen = ({route}: NominationScreenProps) => {
 
   return (
     <FlatList
-      data={data?.users}
+      data={data?.users.map(user=>({...user, role: route.params.role, eventStatus:route.params.eventStatus, nominationId:data.id}))}
       renderItem={renderItem}
       ListHeaderComponent={() => (
         <View>

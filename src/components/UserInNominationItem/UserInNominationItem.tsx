@@ -24,14 +24,16 @@ export const UserInNominationItem = ({
   hasViewAccess,
   firstName,
   lastName,
+  id,
+  nominationId
 }: UserResponseDto) => {
   const navigation = useNavigation<NavigationProp>();
   const go = () => {
     if (hasEditAccess) {
-      navigation.push(MAIN_ROUTES.ASSESSMENT, {id: '12324'});
+      navigation.push(MAIN_ROUTES.ASSESSMENT, {nominationId, userId:id});
     } else if (hasViewAccess) {
       // TODO: change
-      navigation.push(MAIN_ROUTES.ASSESSMENT, {id: '12324'});
+      // navigation.push(MAIN_ROUTES.ASSESSMENT, {id: '12324'});
     }
   };
 

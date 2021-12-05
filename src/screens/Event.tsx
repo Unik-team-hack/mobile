@@ -97,7 +97,7 @@ export const EventScreen = ({route}: EventScreenProps) => {
   return (
     <View style={styles.wrapper}>
         
-      <NominationsList ListHeaderComponent={header} data={event.nominations}/>
+      <NominationsList ListHeaderComponent={header} data={event.nominations.map(nomination=>({...nomination, event:event.nominationRoles[nomination.id], eventStatus:event.status}))}/>
       { user?.admin && buttonTitle && <View style={styles.buttonWrapper}>
          <Button text={buttonTitle} onPress={onPress} />
          </View>}

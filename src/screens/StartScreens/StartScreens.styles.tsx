@@ -34,7 +34,7 @@ export const startScreensStyles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   secondaryBtnText: {
-    color: '#2787F5',
+    color: 'rgb(47, 54, 106)',
   },
   label: {
     marginLeft: 6,

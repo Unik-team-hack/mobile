@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import type {NominationResponseDto} from '@/api/dto';
+import type {EventStatus, NominationResponseDto} from '@/api/dto';
 import {Separator} from '../Separator';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/core';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
@@ -22,9 +22,9 @@ type NavigationProp = CompositeNavigationProp<
   StackNavigationProp<MainStackParamList>
 >;
 
-const NominationItem = ({title, id}: NominationResponseDto) => {
+const NominationItem = ({title, id, role,eventStatus}: NominationResponseDto&{role:string,eventStatus:EventStatus}) => {
   const navigation = useNavigation<NavigationProp>();
-  const go = () => navigation.push(MAIN_ROUTES.NOMINATION, {id});
+  const go = () => navigation.push(MAIN_ROUTES.NOMINATION, {id, role, eventStatus});
 
   return (
     <TouchableOpacity style={styles.wrapper} onPress={go}>
@@ -34,12 +34,12 @@ const NominationItem = ({title, id}: NominationResponseDto) => {
   );
 };
 
-const renderItem: ListRenderItem<NominationResponseDto> = ({item}) => {
+const renderItem: ListRenderItem<(NominationResponseDto&{role:string})> = ({item}) => {
   return <NominationItem {...item} />;
 };
 
 interface NominationsListProps {
-  data: NominationResponseDto[];
+  data: (NominationResponseDto&{role:string, eventStatus:EventStatus})[];
   ListHeaderComponent: React.ReactElement
 }
 

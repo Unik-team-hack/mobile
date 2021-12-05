@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {MarkForm} from '@/components/MarkForm';
 import {CriteriaResponseDto} from '@/api/dto';
 import {ScrollView} from 'react-native-gesture-handler';
+import { API } from '@/api';
 
 type CritWithMark = Pick<
   CriteriaResponseDto,
@@ -29,11 +30,16 @@ const mock: CritWithMark[] = [
 export const AssessmentScreen = () => {
   const [crits, setCrits] = React.useState<CritWithMark[]>(mock);
 
+  useEffect(() => {
+    // setCrits( API.nominations.getCriterias(id))
+  }, [])
+
   const onSelect = React.useCallback((ind: number, val: number) => {
     setCrits(curr => {
       curr[ind].mark = val;
       return [...curr];
     });
+    // API.marks.setMark(crits[ind].id, userId, val)
   }, []);
 
   return (

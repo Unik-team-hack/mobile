@@ -33,6 +33,8 @@ const nominations = {
     axios
       .get<NominationResponseDto>(`${BASE_API_URL}/v1/nominations/${id}`)
       .then(x => x.data),
+  getCriterias: async (id:string)=> []
+      
 };
 
 const auth = {

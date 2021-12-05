@@ -32,6 +32,7 @@ export type NominationResponseDto = {
 };
 
 export type CriteriaResponseDto = {
+  id:string;
   title: string;
   description?: string;
   nominationName: string;

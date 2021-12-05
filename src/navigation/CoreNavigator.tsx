@@ -15,7 +15,8 @@ const icons = ['home', 'dice-four', 'user-circle'].map(
 );
 
 export const CoreNavigator = () => (
-  <Tab.Navigator>
+  <Tab.Navigator
+  screenOptions={{tabBarActiveTintColor:'rgb(47,54,106)'}}>
     <Tab.Screen
       name={CORE_ROUTES.MAIN}
       // component={screens.MainScreen}
