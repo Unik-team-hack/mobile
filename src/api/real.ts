@@ -37,6 +37,20 @@ const auth = {
     axios.post<UserResponseDto>(`${BASE_API_URL}/v1/users/register`, data),
   getMe: () =>
     axios.get<UserResponseDto>(`${BASE_API_URL}/v1/users/me`).then(x => x.data),
+  update: (
+    firstName: string | null = null,
+    lastName: string | null = null,
+    patronymic: string | null = null,
+  ) => {
+    const params = `firstName=${firstName}&lastName=${lastName}&patronymic=${patronymic}`;
+    return axios.put<UserResponseDto>(
+      `${BASE_API_URL}/v1/users/updateFIO?${params}`,
+    );
+  },
+  updatePassword: (newPass: string) =>
+    axios.put<UserResponseDto>(`${BASE_API_URL}/v1/users/resetPassword`, {
+      password: newPass,
+    }),
 };
 
 const marks = {

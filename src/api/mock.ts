@@ -117,6 +117,34 @@ const auth = {
     };
     return res;
   },
+  update: async (
+    firstName: string | null = null,
+    lastName: string | null = null,
+    patronymic: string | null = null,
+  ) => {
+    const res: UserResponseDto = {
+      id: '1234',
+      email: 'example@mail.ru',
+      firstName: firstName || 'Александр',
+      image:
+        'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
+      lastName: lastName || 'Качмазов',
+      patronymic: patronymic || 'Отчество',
+    };
+    return res;
+  },
+  updatePassword: async (newPass: string) => {
+    const res: UserResponseDto = {
+      id: '1234',
+      email: 'example@mail.ru',
+      firstName: 'Александр',
+      image:
+        'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
+      lastName: 'Качмазов',
+      patronymic: 'Отчество',
+    };
+    return res;
+  },
 };
 
 const marks = {
