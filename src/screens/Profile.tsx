@@ -1,24 +1,26 @@
 import { UserResponseDto } from '@/api/dto';
 import { Button } from '@/components/Button';
 import { ProfileNavProps, PROFILE_ROUTES } from '@/navigation/ProfileScreen/types';
-import React from 'react';
+import ProfileStore from '@/store/ProfileStore';
+import { useIsFocused } from '@react-navigation/core';
+import { observer } from 'mobx-react-lite';
+import React, { useContext, useEffect } from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
 type ProfileScreenProps = ProfileNavProps<PROFILE_ROUTES.PROFILE>
 
-export const ProfileScreen = ({navigation,route}:ProfileScreenProps) => {
+export const ProfileScreen = observer(({navigation,route}:ProfileScreenProps) => {
+  const isFocused = useIsFocused()
 
-  const {firstName,lastName,patronymic, email} :UserResponseDto = {
-    firstName: 'Александр',
-    image:
-      'https://sun7-8.userapi.com/s/v1/ig2/LODkEbuCJT2eRZxvKNDOfv2LXxCupLWEeCZ1Ol8WYP_aIvXr4mKbHUHUkJvmoezBbT5f68KMVgZrP4gMNr6jmnUm.jpg?size=200x200&quality=95&crop=250,871,762,762&ava=1',
-    lastName: 'Качмазов',
-    id: '124r',
-    patronymic:'Алекс',
-    email: 'prikol@.ru'
-  };
+  const {fetchUser, user} = useContext(ProfileStore)
 
-  const renderInfoField = (title:string, value:string) => 
+  useEffect(() => {
+    if(isFocused){
+      fetchUser()
+    }
+  }, [fetchUser])
+
+  const renderInfoField = (title:string, value?:string) => 
   <Text style={styles.infoItem}>
     <Text>{`${title}: `}</Text>
     <Text style={styles.accentedText}>{value}</Text>
@@ -36,10 +38,10 @@ export const ProfileScreen = ({navigation,route}:ProfileScreenProps) => {
         }}
         style={styles.avatar}
         />
-        {renderInfoField('Имя',firstName)}
-        {renderInfoField('Фамилия',lastName)}
-        {renderInfoField('Отчество',patronymic)}
-        {renderInfoField('E-mail',email)}
+        {renderInfoField('Имя', user?.firstName)}
+        {renderInfoField('Фамилия',user?.lastName)}
+        {renderInfoField('Отчество',user?.patronymic)}
+        {renderInfoField('E-mail',user?.email)}
       </View>
 
       <Button text={'Изменить имя'} onPress={navigateToChangeName}/>
@@ -47,7 +49,7 @@ export const ProfileScreen = ({navigation,route}:ProfileScreenProps) => {
       <Button text={'Выход'} style={styles.exitButton} onPress={()=>{}}/>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container:{
