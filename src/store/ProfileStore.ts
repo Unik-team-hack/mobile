@@ -4,7 +4,7 @@ import { makeAutoObservable } from "mobx"
 import { createContext } from "react"
 
 class ProfileStore {
-    user?: UserResponseDto
+    user?: UserResponseDto = undefined
 
     constructor(){
         makeAutoObservable(this)

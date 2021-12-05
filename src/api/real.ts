@@ -2,6 +2,7 @@ import axios from 'axios';
 import {BASE_API_URL} from './config';
 import type {
   EventResponseDto,
+  EventStatus,
   ExtendedEventResponseDto,
   MarksResponseDto,
   NominationResponseDto,
@@ -15,11 +16,15 @@ const events = {
   getList: () =>
     axios
       .get<EventResponseDto[]>(`${BASE_API_URL}/v1/events`)
-      .then(x => x.data),
+      .then(x => x.data).catch(console.log),
   getDetails: (id: string) =>
     axios
       .get<ExtendedEventResponseDto>(`${BASE_API_URL}/v1/events?id=${id}`)
       .then(x => x.data),
+  setStatus: (id: string, status: EventStatus) =>
+    axios.post<EventResponseDto>(
+      `${BASE_API_URL}/v1/events/status?status=${status}&eventId=${id}`
+    ),
 };
 
 const nominations = {
@@ -48,9 +53,11 @@ const auth = {
     );
   },
   updatePassword: (newPass: string) =>
-    axios.put<UserResponseDto>(`${BASE_API_URL}/v1/users/resetPassword`, {
-      password: newPass,
-    }),
+    axios.put<UserResponseDto>(`${BASE_API_URL}/v1/users/resetPassword`, 
+    {
+      password: newPass
+    },         
+    ),
 };
 
 const marks = {

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   FlatList,
   ListRenderItem,
   StyleSheet,
   Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import type {NominationResponseDto} from '@/api/dto';
@@ -14,6 +15,7 @@ import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {MainStackParamList, MAIN_ROUTES} from '@/navigation/MainScreen/types';
 import {CoreTabsParamList, CORE_ROUTES} from '@/navigation/types';
+import ProfileStore from '@/store/ProfileStore';
 
 type NavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<CoreTabsParamList, CORE_ROUTES.EVENT>,
@@ -38,20 +40,25 @@ const renderItem: ListRenderItem<NominationResponseDto> = ({item}) => {
 
 interface NominationsListProps {
   data: NominationResponseDto[];
+  ListHeaderComponent: React.ReactElement
 }
 
-export const NominationsList = ({data}: NominationsListProps) => (
+export const NominationsList = ({data, ListHeaderComponent}: NominationsListProps) =>{ 
+  const {user, fetchUser} = useContext(ProfileStore)
+  
+  return (
   <FlatList
     data={data}
     renderItem={renderItem}
+    ListHeaderComponent={ListHeaderComponent}
+    showsVerticalScrollIndicator={false}
     ListEmptyComponent={
       <Text style={styles.empty}>Пока что нет ни одной номинации</Text>
     }
+    ListFooterComponent={user?.admin ? <View style={styles.footer}/> : null}
     ItemSeparatorComponent={Separator}
-    style={styles.list}
-    scrollEnabled={false}
   />
-);
+);}
 
 const styles = StyleSheet.create({
   empty: {
@@ -67,5 +74,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {fontSize: 16},
-  list: {paddingTop: 4},
+  footer:{
+    height:64, 
+  }  
 });

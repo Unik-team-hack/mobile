@@ -45,7 +45,7 @@ export type UserResponseDto = {
   patronymic: string;
   email: string;
   image: string;
-  isAdmin?: boolean;
+  admin?: boolean;
 };
 
 export type SignInRequestDto = {

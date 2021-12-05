@@ -32,7 +32,6 @@ export const EventsScreen = () => {
       ItemSeparatorComponent={Separator}
       onRefresh={onRefresh}
       refreshing={isRefreshing}
-      ListHeaderComponent={<CreateEventButton />}
     />
   );
 };

@@ -1,6 +1,7 @@
 import { UserResponseDto } from '@/api/dto';
 import { Button } from '@/components/Button';
 import { ProfileNavProps, PROFILE_ROUTES } from '@/navigation/ProfileScreen/types';
+import AuthStore from '@/store/AuthStore';
 import ProfileStore from '@/store/ProfileStore';
 import { useIsFocused } from '@react-navigation/core';
 import { observer } from 'mobx-react-lite';
@@ -9,8 +10,9 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 
 type ProfileScreenProps = ProfileNavProps<PROFILE_ROUTES.PROFILE>
 
-export const ProfileScreen = observer(({navigation,route}:ProfileScreenProps) => {
+export const ProfileScreen = observer(({navigation}:ProfileScreenProps) => {
   const isFocused = useIsFocused()
+  const {logout} = useContext(AuthStore)
 
   const {fetchUser, user} = useContext(ProfileStore)
 
@@ -18,7 +20,7 @@ export const ProfileScreen = observer(({navigation,route}:ProfileScreenProps) =>
     if(isFocused){
       fetchUser()
     }
-  }, [fetchUser])
+  }, [fetchUser,isFocused])
 
   const renderInfoField = (title:string, value?:string) => 
   <Text style={styles.infoItem}>
@@ -45,8 +47,8 @@ export const ProfileScreen = observer(({navigation,route}:ProfileScreenProps) =>
       </View>
 
       <Button text={'Изменить имя'} onPress={navigateToChangeName}/>
-      <Button text={'Поменять пароль'} onPress={navigateToChangePass}/>
-      <Button text={'Выход'} style={styles.exitButton} onPress={()=>{}}/>
+      {/* <Button text={'Поменять пароль'} onPress={navigateToChangePass}/> */}
+      <Button text={'Выход'} style={styles.exitButton} onPress={logout}/>
     </View>
   );
 });
