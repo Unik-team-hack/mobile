@@ -16,11 +16,11 @@ export const ChangePass = ({navigation}:ChangePassProps) => {
         await updatePass(newPassword)
         navigation.goBack()
     }
-    
+
     return (
         <View>
             <Text>{'Новый пароль'}</Text>
-            <TextInput secureTextEntry={true}/>
+            <TextInput value={newPassword} onChangeText={setNewPassword} secureTextEntry={true}/>
             <Button text={'Подтвердить'} onPress={onSubmit}/>
         </View>
     )
