@@ -34,6 +34,8 @@ const auth = {
     axios.post<SignInResponseDto>(`${BASE_API_URL}/v1/auth/login`, data),
   signUp: (data: SignUpRequestDto) =>
     axios.post<UserResponseDto>(`${BASE_API_URL}/v1/users/register`, data),
+  getMe: () =>
+    axios.get<UserResponseDto>(`${BASE_API_URL}/v1/users/me`).then(x => x.data),
 };
 
 const marks = {
