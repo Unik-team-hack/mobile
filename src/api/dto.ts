@@ -10,6 +10,7 @@ export type EventResponseDto = {
 export type ExtendedEventResponseDto = EventResponseDto & {
   participants: UserResponseDto[];
   nominations: NominationResponseDto[];
+  nominationRoles: {[key: string]: 'PARTICIPANT' | 'ACCESSOR' | 'JUDGE'};
 };
 
 export type NominationResponseDto = {

@@ -43,6 +43,9 @@ const events = {
           lastName: 'Качмазов',
         },
       ],
+      nominationRoles: {
+        '123': 'ACCESSOR',
+      },
     };
 
     return res;
