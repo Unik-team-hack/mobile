@@ -14,5 +14,5 @@ export type MainStackParamList = {
   [MAIN_ROUTES.ASSESSMENT]: undefined;
 };
 
-export type ProfileNavProps<T extends keyof MainStackParamList> =
+export type MainNavProps<T extends keyof MainStackParamList> =
   StackScreenProps<MainStackParamList, T>;

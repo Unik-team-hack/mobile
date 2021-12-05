@@ -1,0 +1,1 @@
+export {ProfileScreenNavigator} from './ProfileScreenNavigator';

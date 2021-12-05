@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import * as screens from '@/screens';
 import {CoreTabsParamList, CORE_ROUTES} from './types';
 import {MainScreenNavigator} from './MainScreen';
+import { ProfileScreenNavigator } from './ProfileScreen';
 
 const Tab = createBottomTabNavigator<CoreTabsParamList>();
 
@@ -23,8 +24,8 @@ export const CoreNavigator = () => (
     />
     <Tab.Screen
       name={CORE_ROUTES.PROFILE}
-      component={screens.ProfileScreen}
-      options={{tabBarIcon: icons[2]}}
+      component={ProfileScreenNavigator}
+      options={{tabBarIcon: icons[2], headerShown: false}}
     />
   </Tab.Navigator>
 );
