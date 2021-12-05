@@ -103,8 +103,15 @@ const auth = {
   },
 };
 
+const marks = {
+  setMark: async () => {
+    return {};
+  },
+};
+
 export const API = {
   events,
   nominations,
   auth,
+  marks,
 };

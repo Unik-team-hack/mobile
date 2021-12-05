@@ -36,8 +36,16 @@ const auth = {
     axios.post<UserResponseDto>(`${BASE_API_URL}/v1/users/register`, data),
 };
 
+const marks = {
+  setMark: (criteriaId: string, userId: string, mark: number) =>
+    axios.post(
+      `${BASE_API_URL}/v1/marks?criteriaId=${criteriaId}&userId=${userId}&mark=${mark}`,
+    ),
+};
+
 export const API = {
   events,
   nominations,
   auth,
+  marks,
 };
