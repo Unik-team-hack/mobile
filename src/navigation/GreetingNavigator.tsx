@@ -1,42 +1,48 @@
-// import React from 'react';
-// import {
-//   createStackNavigator,
-//   StackNavigationOptions,
-// } from '@react-navigation/stack';
+import React from 'react';
+import {
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack';
+import {SignInScreen} from '@/screens/StartScreens/SignInScreen';
+import {SignUpScreen} from '@/screens/StartScreens/SignUpScreen';
 
-// import {GreetingScreen, SignInScreen, SignUpScreen} from '@/screens';
-// // import {SERVICES_ROUTES, ServicesStackParamList} from './types';
+import {StackScreenProps} from '@react-navigation/stack';
 
-// const Stack = createStackNavigator();
+export enum GREETING_ROUTES {
+  SIGNIN = 'Вход',
+  SIGNUP = 'Регистрация',
+}
 
-// const screenOptions: StackNavigationOptions = {
-//   headerTitleStyle: {fontSize: 20}, // 22
-//   cardStyle: {
-//     backgroundColor: '#ffffff',
-//     // paddingTop: '40%',
-//     paddingHorizontal: 14,
-//   },
-// };
+export type GreetingStackParamList = {
+  [GREETING_ROUTES.SIGNIN]: undefined;
+  [GREETING_ROUTES.SIGNUP]: {id: string};
+};
 
-// export const GreetingNavigator: React.FC = () => (
-//   <Stack.Navigator screenOptions={screenOptions}>
-//     {/* TODO: typing for route */}
-//     <Stack.Screen
-//       name="hello"
-//       component={GreetingScreen}
-//       options={{title: '', headerShown: false}}
-//     />
-//     {/* TODO: typing for route */}
-//     <Stack.Screen
-//       name="signin"
-//       component={SignInScreen}
-//       options={{title: 'Вход'}}
-//     />
-//     {/* TODO: typing for route */}
-//     <Stack.Screen
-//       name="signup"
-//       component={SignUpScreen}
-//       options={{title: 'Регистрация'}}
-//     />
-//   </Stack.Navigator>
-// );
+export type ProfileNavProps<T extends keyof GreetingStackParamList> =
+  StackScreenProps<GreetingStackParamList, T>;
+
+const Stack = createStackNavigator();
+
+const screenOptions: StackNavigationOptions = {
+  headerTitleStyle: {fontSize: 20}, // 22
+  cardStyle: {
+    backgroundColor: '#ffffff',
+    // paddingTop: '40%',
+    paddingHorizontal: 14,
+  },
+};
+
+export const GreetingNavigator: React.FC = () => (
+  <Stack.Navigator screenOptions={screenOptions}>
+    <Stack.Screen
+      name={GREETING_ROUTES.SIGNIN}
+      component={SignInScreen}
+      options={{title: 'Вход'}}
+    />
+    <Stack.Screen
+      name={GREETING_ROUTES.SIGNUP}
+      component={SignUpScreen}
+      options={{title: 'Регистрация'}}
+    />
+  </Stack.Navigator>
+);

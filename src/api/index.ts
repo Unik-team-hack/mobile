@@ -4,6 +4,10 @@ import type {
   EventResponseDto,
   ExtendedEventResponseDto,
   NominationResponseDto,
+  SignInRequestDto,
+  SignInResponseDto,
+  SignUpRequestDto,
+  UserResponseDto,
 } from './dto';
 
 const events = {
@@ -25,7 +29,15 @@ const nominations = {
       .then(x => x.data),
 };
 
+const auth = {
+  signIn: (data: SignInRequestDto) =>
+    axios.post<SignInResponseDto>(`${BASE_API_URL}/v1/auth/login`, data),
+  signUp: (data: SignUpRequestDto) =>
+    axios.post<UserResponseDto>(`${BASE_API_URL}/v1/users/register`, data),
+};
+
 export const API = {
   events,
   nominations,
+  auth,
 };
